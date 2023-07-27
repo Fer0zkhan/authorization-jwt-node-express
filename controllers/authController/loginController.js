@@ -1,6 +1,7 @@
 const User = require("../../models/User");
 const createError = require("http-errors");
 const bcrypt = require("bcrypt");
+const { sendTokenResponse } = require("../../utils/jwtUtils");
 
 module.exports = async (req, res, next) => {
   try {
@@ -14,12 +15,7 @@ module.exports = async (req, res, next) => {
 
     if (!isPasswordMatched) throw createError(404, "Invalid Credentials");
 
-    res.status(200).json({
-      success: true,
-      statusCode: 200,
-      message: "User has been login successfully",
-      data: isUserExits,
-    });
+    sendTokenResponse(isUserExits, res, "User Login Successfully", 200);
   } catch (error) {
     next(error);
   }

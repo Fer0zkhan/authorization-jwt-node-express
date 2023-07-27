@@ -5,13 +5,16 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const createError = require("http-errors");
+const cookieParser = require("cookie-parser");
 
 app.use(cors("*"));
+app.use(cookieParser());
 app.use(express.json());
 app.use("/assets", express.static(__dirname + "/assets"));
 
 app.use("/api/auth", require("./routes/authRoutes/auth"));
 app.use("/api/book", require("./routes/bookRoutes/bookRoutes"));
+app.use("/api/refresh-token", require("./routes/refreshTokenRoutes/refreshTokenRoutes"));
 
 app.use(function (err, req, res, next) {
   res.status(err.status || 500).send({

@@ -1,7 +1,9 @@
-const { getAllBooksController } = require("../../controllers");
+const { getAllBooksController, createNewBook } = require("../../controllers");
+const { authenticateToken } = require("../../middleware");
 
 const router = require("express").Router();
 
-router.get("/all", getAllBooksController);
+router.get("/all", authenticateToken, getAllBooksController);
+router.post("/create", authenticateToken, createNewBook);
 
 module.exports = router;

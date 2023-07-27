@@ -1,6 +1,7 @@
 const User = require("../../models/User");
 const bcrypt = require("bcrypt");
 const createError = require("http-errors");
+const { sendTokenResponse } = require("../../utils/jwtUtils");
 
 module.exports = async (req, res, next) => {
   try {
@@ -23,12 +24,7 @@ module.exports = async (req, res, next) => {
 
     await newUser.save();
 
-    res.status(201).json({
-      success: true,
-      statusCode: 201,
-      message: "User registered successfully",
-      data: newUser,
-    });
+    sendTokenResponse(newUser, res, "User Registered Successfully", 201);
   } catch (error) {
     next(error);
   }

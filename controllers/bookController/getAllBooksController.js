@@ -2,7 +2,7 @@ const Book = require("../../models/Book");
 
 module.exports = async (req, res, next) => {
   try {
-    const books = await Book.find();
+    const books = await Book.find({ user: req.user.id });
 
     res.status(200).json({
       success: true,
