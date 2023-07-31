@@ -7,6 +7,7 @@ const cors = require("cors");
 const createError = require("http-errors");
 const cookieParser = require("cookie-parser");
 
+//Middleware
 app.use(cors("*"));
 app.use(cookieParser());
 app.use(express.json());
